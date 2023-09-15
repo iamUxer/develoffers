@@ -5,13 +5,14 @@ import { theme } from '@/styles/theme';
 import { GlobalStyle } from '@/styles/global';
 import { useEffect, useState } from 'react';
 import LoadingScreen from '@/components/loading-screen';
+import { auth } from '@/firebase';
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setLoading] = useState(true);
   const init = async () => {
     // wait for firebase
-    // setTimeout(() => setIsLoading(false), 2000);
-    setIsLoading(false);
+    await auth.authStateReady();
+    setLoading(false);
   };
 
   useEffect(() => {
