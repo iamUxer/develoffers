@@ -8,7 +8,7 @@ const style = css`
     box-sizing: border-box;
   }
   body {
-    background: white;
+    background: #eee;
     color: black;
   }
   h1 {
