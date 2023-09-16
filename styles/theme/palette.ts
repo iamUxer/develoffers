@@ -1,9 +1,8 @@
 import { css } from '@emotion/react';
 
 export const palette = {
-  primary_color: css`
-    color: tomato;
-  `,
+  primary: 'tomato',
+  default: 'white',
 };
 
 export type TypeOfPalette = typeof palette;

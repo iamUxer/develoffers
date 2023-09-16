@@ -11,6 +11,16 @@ const style = css`
     background: #eee;
     color: black;
   }
+  button,
+  link,
+  a {
+    &:hover {
+      cursor: pointer;
+    }
+    &:active {
+      opacity: 0.9;
+    }
+  }
   h1 {
     ${theme.typo.Header_28}
   }

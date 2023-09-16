@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { InputTextStyled } from '@/styles/components/inputText.styled';
+import { ButtonStyled, InputTextStyled } from '@/styles/components';
 import { JoinStyled } from '@/styles/pages/join.styled';
 import { useForm } from 'react-hook-form';
 
@@ -18,19 +18,34 @@ const Join = forwardRef(() => {
 
   const onSubmit = (data: FormValues) => {
     console.log(data);
-    // onJoin(data);
   };
   return (
     <>
-      <h2>Create Account</h2>
       <JoinStyled>
+        <h2>Create Account</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           <InputTextStyled
-            register={register('name')}
+            register={register('name', {
+              required: true,
+            })}
             name="name"
             placeholder="name"
           />
-          <button type="submit">Join</button>
+          <InputTextStyled
+            register={register('email')}
+            name="email"
+            placeholder="email"
+            type="email"
+          />
+          <InputTextStyled
+            register={register('password')}
+            name="password"
+            placeholder="password"
+            type="password"
+          />
+          <ButtonStyled type="submit" color="primary">
+            Join
+          </ButtonStyled>
         </form>
       </JoinStyled>
     </>

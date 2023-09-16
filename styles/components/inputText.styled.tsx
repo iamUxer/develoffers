@@ -1,21 +1,28 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, Ref } from 'react';
 import styled from '@emotion/styled';
 
-export const InputTextStyled = forwardRef((props: InputType) => {
-  const { name, placeholder, register } = props;
+export const InputTextStyled = forwardRef(
+  (props: InputType, ref: Ref<HTMLInputElement>) => {
+    const { name, placeholder, register, type, value } = props;
 
-  console.log(register);
-
-  return (
-    <InputCss {...register} name={name} placeholder={placeholder} type="text" />
-  );
-});
+    return (
+      <InputCss
+        {...register}
+        name={name}
+        placeholder={placeholder}
+        type={type}
+        value={value}
+      />
+    );
+  }
+);
 
 interface InputType {
-  name: string;
-  type?: string;
-  placeholder: string;
+  name?: string;
+  type?: string | 'text';
+  placeholder?: string;
   register?: any;
+  value?: string;
 }
 
 const InputCss = styled.input`
