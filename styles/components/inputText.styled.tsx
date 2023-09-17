@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 
 export const InputTextStyled = forwardRef(
   (props: InputType, ref: Ref<HTMLInputElement>) => {
-    const { name, placeholder, register, type, value } = props;
+    const { name, placeholder, register, type } = props;
 
     return (
       <InputCss
@@ -11,7 +11,6 @@ export const InputTextStyled = forwardRef(
         name={name}
         placeholder={placeholder}
         type={type}
-        value={value}
       />
     );
   }
@@ -22,7 +21,6 @@ interface InputType {
   type?: string | 'text';
   placeholder?: string;
   register?: any;
-  value?: string;
 }
 
 const InputCss = styled.input`

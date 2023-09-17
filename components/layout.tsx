@@ -15,6 +15,7 @@ export default Layout;
 
 const StyledLayout = styled.div`
   h2 {
+    margin-bottom: 15px;
     color: ${theme.palette.primary};
   }
 `;
