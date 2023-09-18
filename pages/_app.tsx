@@ -6,6 +6,7 @@ import { GlobalStyle } from '@/styles/global';
 import { useEffect, useState } from 'react';
 import LoadingScreen from '@/components/loading-screen';
 import { auth } from '@/firebase';
+import AuthProvider from '@/components/auth-provider';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [isLoading, setLoading] = useState(true);
@@ -23,10 +24,12 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <Layout>
-          {isLoading && <LoadingScreen />}
-          {!isLoading && <Component {...pageProps} />}
-        </Layout>
+        <AuthProvider>
+          <Layout>
+            {isLoading && <LoadingScreen />}
+            {!isLoading && <Component {...pageProps} />}
+          </Layout>
+        </AuthProvider>
       </ThemeProvider>
     </>
   );

@@ -23,7 +23,7 @@ interface InputType {
   register?: any;
 }
 
-const InputCss = styled.input`
+const InputCss = styled.input<InputType>`
   border-radius: 50px;
   border: none;
   font-size: 16px;

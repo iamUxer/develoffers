@@ -3,6 +3,11 @@ import { css } from '@emotion/react';
 export const palette = {
   primary: 'tomato',
   default: 'white',
+  disabled: '#aaa',
+  disabled_background: css`
+    background-color: #aaa;
+    color: #fff;
+  `,
 };
 
 export type TypeOfPalette = typeof palette;

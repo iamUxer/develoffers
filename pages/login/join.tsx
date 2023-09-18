@@ -1,8 +1,16 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useState } from 'react';
 import { ButtonStyled, InputTextStyled } from '@/styles/components';
 import { JoinStyled } from '@/styles/pages/join.styled';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { auth } from '@/firebase';
+import { useRouter } from 'next/router';
+import { FirebaseError } from 'firebase/app';
+
+const errors = {
+  'auth/weak-password': 'Password should be at least 6 characters',
+};
 
 export interface FormValues {
   name: string;
@@ -10,19 +18,39 @@ export interface FormValues {
   password: string;
 }
 
-interface OnSearchType {
-  onJoin: (data: FormValues) => void;
-}
-
 const Join = forwardRef(() => {
+  const router = useRouter();
+  const [isLoading, setLoading] = useState(false);
+  const [isError, setError] = useState('');
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm<FormValues>({ mode: 'onBlur' });
 
-  const onSubmit = (data: FormValues) => {
-    console.log(data);
+  const onSubmit = async (data: FormValues) => {
+    const { name, email, password } = data;
+    if (isLoading || !name || !email || !password) return;
+
+    try {
+      setLoading(true);
+      const credentials = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log(credentials.user);
+      await updateProfile(credentials.user, {
+        displayName: name,
+      });
+      router.push('/');
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        setError(error.message);
+      }
+      setLoading(false);
+    } finally {
+    }
   };
   return (
     <>
@@ -49,22 +77,23 @@ const Join = forwardRef(() => {
           <InputTextStyled
             register={register('password', {
               required: true,
-              maxLength: {
-                value: 8,
-                message: 'This input exceed maxLength.',
-              },
             })}
             name="password"
             placeholder="password"
             type="password"
           />
           {errors.password?.type === 'required' && <p>This is required.</p>}
-          {errors.password?.type === 'maxLength' && (
-            <p>{errors.password.message}</p>
+          {isLoading && (
+            <ButtonStyled type="submit" color="loading" disabled={true}>
+              Loading...
+            </ButtonStyled>
           )}
-          <ButtonStyled type="submit" color="primary">
-            Join
-          </ButtonStyled>
+          {!isLoading && (
+            <ButtonStyled type="submit" color="primary">
+              Join
+            </ButtonStyled>
+          )}
+          {isError && <p>{isError}</p>}
         </form>
       </JoinStyled>
     </>

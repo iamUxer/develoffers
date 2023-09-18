@@ -1,6 +1,7 @@
 // import styled from 'styled-components';
 import { theme } from '@/styles/theme';
 import styled from '@emotion/styled';
+import ProtectedRoute from './auth-provider';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (

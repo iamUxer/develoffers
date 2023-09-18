@@ -1,5 +1,9 @@
-const Login = () => {
-  return <h2>Login~</h2>;
+const Welcome = () => {
+  return (
+    <>
+      <h2>Login~</h2>
+    </>
+  );
 };
 
-export default Login;
+export default Welcome;

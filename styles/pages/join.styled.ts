@@ -18,7 +18,7 @@ export const JoinStyled = styled.div`
       }
     }
     & p {
-      margin: 10px 10px 15px 15px;
+      margin: 8px 10px 10px 15px;
       font-size: 14px;
       color: ${theme.palette.primary};
     }
