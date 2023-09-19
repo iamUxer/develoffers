@@ -2,7 +2,9 @@ import { css } from '@emotion/react';
 
 export const palette = {
   primary: 'tomato',
-  default: 'white',
+  default: '#ddd',
+  default_color: '#333',
+  bright: '#fff',
   disabled: '#aaa',
   disabled_background: css`
     background-color: #aaa;

@@ -3,15 +3,14 @@ import { ButtonStyled, InputTextStyled } from '@/styles/components';
 import { JoinStyled } from '@/styles/pages/join.styled';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
+import { auth } from '@/firebase';
 import {
   GithubAuthProvider,
-  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
   signInWithPopup,
-  updateProfile,
 } from 'firebase/auth';
-import { auth } from '@/firebase';
-import { useRouter } from 'next/router';
 import { FirebaseError } from 'firebase/app';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { GithubOutlined } from '@ant-design/icons';
 
@@ -20,12 +19,11 @@ const errors = {
 };
 
 export interface FormValues {
-  name: string;
   email: string;
   password: string;
 }
 
-const Join = forwardRef(() => {
+const Login = forwardRef(() => {
   const router = useRouter();
   const [isLoading, setLoading] = useState(false);
   const [isError, setError] = useState('');
@@ -36,21 +34,13 @@ const Join = forwardRef(() => {
   } = useForm<FormValues>({ mode: 'onBlur' });
 
   const onSubmit = async (data: FormValues) => {
-    const { name, email, password } = data;
-    if (isLoading || !name || !email || !password) return;
+    const { email, password } = data;
+    if (isLoading || !email || !password) return;
 
     try {
       setLoading(true);
-      const credentials = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      console.log(credentials.user);
-      await updateProfile(credentials.user, {
-        displayName: name,
-      });
-      router.push('/');
+      await signInWithEmailAndPassword(auth, email, password);
+      router.push('/home');
     } catch (error) {
       if (error instanceof FirebaseError) {
         setError(error.message);
@@ -59,11 +49,13 @@ const Join = forwardRef(() => {
     } finally {
     }
   };
-
   const onGithub = async () => {
     try {
       const provider = new GithubAuthProvider();
-      await signInWithPopup(auth, provider);
+      const success = await signInWithPopup(auth, provider);
+      if (success) {
+        router.push('/home');
+      }
     } catch (error) {
       console.error(error);
     }
@@ -71,16 +63,8 @@ const Join = forwardRef(() => {
   return (
     <>
       <JoinStyled>
-        <h2>Create Account</h2>
+        <h2>Log In</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <InputTextStyled
-            register={register('name', {
-              required: true,
-            })}
-            name="name"
-            placeholder="name"
-          />
-          {errors.name?.type === 'required' && <p>This is required.</p>}
           <InputTextStyled
             register={register('email', {
               required: true,
@@ -106,15 +90,15 @@ const Join = forwardRef(() => {
           )}
           {!isLoading && (
             <ButtonStyled type="submit" color="primary">
-              Join
+              Log in
             </ButtonStyled>
           )}
           {isError && <p>{isError}</p>}
         </form>
 
         <span>
-          이미 계정을 가지고 있나요?
-          <Link href={'/login'}>로그인 하기 &rarr;</Link>
+          계정이 없나요?
+          <Link href={'/login/join'}>계정 만들기 &rarr;</Link>
         </span>
 
         <ButtonStyled type="submit" color="default" onClick={onGithub}>
@@ -128,4 +112,4 @@ const Join = forwardRef(() => {
   );
 });
 
-export default Join;
+export default Login;

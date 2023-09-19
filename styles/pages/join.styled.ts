@@ -22,6 +22,18 @@ export const JoinStyled = styled.div`
       font-size: 14px;
       color: ${theme.palette.primary};
     }
+    & + span {
+      margin-top: 20px;
+      font-size: 13px;
+      color: ${theme.palette.default_color};
+      & a {
+        margin-left: 6px;
+      }
+      & + button {
+        margin-top: 30px;
+        width: 100%;
+      }
+    }
   }
   & button {
     margin-top: 10px;

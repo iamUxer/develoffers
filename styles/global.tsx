@@ -10,6 +10,7 @@ const style = css`
   body {
     background: #eee;
     color: black;
+    letter-spacing: -0.3px;
   }
   button,
   link,
@@ -19,6 +20,9 @@ const style = css`
     }
     &:active {
       opacity: 0.9;
+    }
+    &:visited {
+      color: #0083ff;
     }
   }
   h1 {

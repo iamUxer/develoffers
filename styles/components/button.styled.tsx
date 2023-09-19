@@ -5,8 +5,8 @@ import { theme } from '../theme';
 
 export const ButtonStyled = forwardRef(
   (props: ButtonType, ref: Ref<HTMLInputElement>) => {
-    const { size, color, type, children, disabled, ...rest } = props;
-    console.log(props.size);
+    const { size = 'md', color, type, children, disabled, ...rest } = props;
+    console.log(props.children);
     return (
       <ButtonCss
         size={size}
@@ -22,33 +22,40 @@ export const ButtonStyled = forwardRef(
 );
 
 export interface ButtonType extends React.HTMLAttributes<HTMLButtonElement> {
-  size?: 'sm';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xlg';
   type?: 'button' | 'submit' | 'reset' | undefined;
   color?: string;
-  children?: string;
+  children?: string | React.ReactElement;
   disabled?: boolean;
 }
 
 const ButtonCss = styled.button<ButtonType>`
   border-radius: 50px;
   border: none;
-  font-size: 16px;
+  font-size: 14px;
   padding: 10px 16px;
   background: ${(props) => {
     switch (props.color) {
       case 'primary':
         return theme.palette.primary;
+      default:
+        return theme.palette.default;
     }
   }};
   color: ${(props) => {
     switch (props.color) {
       case 'primary':
-        return theme.palette.default;
+        return theme.palette.bright;
+      default:
+        return theme.palette.default_color;
     }
   }};
 
   &:active {
     opacity: 0.6;
+  }
+  &:hover {
+    opacity: 0.8;
   }
   &:disabled {
     ${theme.palette.disabled_background}
@@ -68,6 +75,11 @@ const ButtonCss = styled.button<ButtonType>`
       font-size: 12px;
       padding: 0 15px;
     `}
+  ${(props) =>
+    props.size === 'md' &&
+    css`
+      height: 38px;
+    `}
 
   // Loading
   ${(props) =>
@@ -75,4 +87,10 @@ const ButtonCss = styled.button<ButtonType>`
     css`
       ${theme.palette.disabled_background}
     `}
+
+    & span {
+    & .anticon {
+      margin-left: 6px;
+    }
+  }
 `;
