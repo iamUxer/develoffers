@@ -6,6 +6,8 @@ const style = css`
   ${emotionReset}
   * {
     box-sizing: border-box;
+    font-family: 'Roboto', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial,
+      sans-serif;
   }
   body {
     background: #eee;

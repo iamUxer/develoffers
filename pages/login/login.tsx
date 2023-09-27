@@ -60,6 +60,7 @@ const Login = forwardRef(() => {
       console.error(error);
     }
   };
+
   return (
     <>
       <JoinStyled>
@@ -70,7 +71,7 @@ const Login = forwardRef(() => {
               required: true,
             })}
             name="email"
-            placeholder="email"
+            placeholder="이메일 입력"
             type="email"
           />
           {errors.email?.type === 'required' && <p>This is required.</p>}
@@ -79,7 +80,7 @@ const Login = forwardRef(() => {
               required: true,
             })}
             name="password"
-            placeholder="password"
+            placeholder="비밀번호 입력"
             type="password"
           />
           {errors.password?.type === 'required' && <p>This is required.</p>}
@@ -90,7 +91,7 @@ const Login = forwardRef(() => {
           )}
           {!isLoading && (
             <ButtonStyled type="submit" color="primary">
-              Log in
+              로그인
             </ButtonStyled>
           )}
           {isError && <p>{isError}</p>}
@@ -102,10 +103,10 @@ const Login = forwardRef(() => {
         </span>
 
         <ButtonStyled type="submit" color="default" onClick={onGithub}>
-          <span>
-            Log in with Github
+          <>
+            깃허브로 로그인
             <GithubOutlined />
-          </span>
+          </>
         </ButtonStyled>
       </JoinStyled>
     </>

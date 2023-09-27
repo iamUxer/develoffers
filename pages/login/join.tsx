@@ -37,6 +37,7 @@ const Join = forwardRef(() => {
 
   const onSubmit = async (data: FormValues) => {
     const { name, email, password } = data;
+    console.log(data);
     if (isLoading || !name || !email || !password) return;
 
     try {
@@ -46,7 +47,6 @@ const Join = forwardRef(() => {
         email,
         password
       );
-      console.log(credentials.user);
       await updateProfile(credentials.user, {
         displayName: name,
       });
@@ -118,10 +118,10 @@ const Join = forwardRef(() => {
         </span>
 
         <ButtonStyled type="submit" color="default" onClick={onGithub}>
-          <span>
+          <>
             Log in with Github
             <GithubOutlined />
-          </span>
+          </>
         </ButtonStyled>
       </JoinStyled>
     </>

@@ -1,7 +1,8 @@
 import { css } from '@emotion/react';
 
 export const palette = {
-  primary: 'tomato',
+  primary: '#205985',
+  bg_primary: '#6d94b1',
   default: '#ddd',
   default_color: '#333',
   bright: '#fff',
