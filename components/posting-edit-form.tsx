@@ -9,29 +9,29 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import imageCompression from 'browser-image-compression';
 import { AppContext } from '@/pages/context';
 
-const PostingForm = () => {
+const PostingEditForm = () => {
   const {
     register,
     formState: { errors },
     handleSubmit,
     reset,
     watch,
-  } = useForm<PostingFormValues>({ mode: 'onChange' });
+  } = useForm<PostingEditFormValues>({ mode: 'onChange' });
   const [isLoading, setLoading] = useState(false);
   const [isError, setError] = useState('');
   const [isFile, setFile] = useState(false);
-  const previewFile = watch('file');
-  const [isURL, setURL] = useState('');
+  const previewFile = watch('editFile');
+  const [isEditURL, setEditURL] = useState('');
   const { isUpdate, setIsUpdate } = useContext(AppContext);
 
   useEffect(() => {
     if (previewFile && previewFile.length > 0) {
-      setURL(URL.createObjectURL(previewFile[0]));
+      setEditURL(URL.createObjectURL(previewFile[0]));
     }
   }, [previewFile]);
 
-  const onSubmit = async (data: PostingFormValues) => {
-    const { post, file } = data;
+  const onSubmit = async (data: PostingEditFormValues) => {
+    const { post, editFile } = data;
     const user = auth.currentUser;
 
     if (!user || isLoading || !post) return;
@@ -52,8 +52,8 @@ const PostingForm = () => {
       });
 
       // 이미지 파일이 있을 때,
-      if (file.length > 0) {
-        const compressedFile = await imageCompression(file?.[0], options);
+      if (editFile.length > 0) {
+        const compressedFile = await imageCompression(editFile?.[0], options);
 
         const locationRef = ref(storage, `posts/${user.uid}/${doc.id}`);
         const result = await uploadBytes(locationRef, compressedFile);
@@ -85,14 +85,14 @@ const PostingForm = () => {
           rows={5}
         />
         <div>
-          {previewFile && <img src={isURL} />}
+          {previewFile && <img src={isEditURL} />}
           <InputTextStyled
-            register={register('file', {
+            register={register('editFile', {
               onChange: (e) => setFile(true),
             })}
-            name="file"
+            name="editFile"
             type="file"
-            id="filexx"
+            id="editFile"
             accept="image/*"
             loading={isFile}
           />
@@ -114,9 +114,9 @@ const PostingForm = () => {
   );
 };
 
-export default PostingForm;
+export default PostingEditForm;
 
-type PostingFormValues = {
+type PostingEditFormValues = {
   post: string;
-  file: FileList;
+  editFile: FileList;
 };

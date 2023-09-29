@@ -5,16 +5,25 @@ import { theme } from '../theme';
 
 export const ButtonStyled = forwardRef(
   (props: ButtonType, ref: Ref<HTMLButtonElement>) => {
-    const { size = 'md', color, type, children, disabled, ...rest } = props;
+    const {
+      size = 'md',
+      color,
+      type,
+      children,
+      disabled,
+      icon,
+      ...rest
+    } = props;
     return (
       <ButtonCss
         size={size}
         type={type}
         color={color}
         disabled={disabled}
+        icon={icon}
         {...rest}
       >
-        <span>{children}</span>
+        <>{children}</>
       </ButtonCss>
     );
   }
@@ -27,12 +36,10 @@ export type ButtonType = React.HTMLAttributes<HTMLButtonElement> & {
   children?: string | React.ReactElement;
   disabled?: boolean;
   htmlFor?: string;
+  icon?: boolean;
 };
 
 const ButtonCss = styled.button<ButtonType>`
-  & > span {
-    /* margin-bottom: -1px; */
-  }
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -45,13 +52,15 @@ const ButtonCss = styled.button<ButtonType>`
       case 'primary':
         return theme.palette.bg_primary;
       default:
-        return theme.palette.default;
+        return theme.palette.bright;
     }
   }};
   color: ${(props) => {
     switch (props.color) {
       case 'primary':
         return theme.palette.bright;
+      case 'bright':
+        return theme.palette.primary;
       default:
         return theme.palette.default_color;
     }
@@ -73,6 +82,10 @@ const ButtonCss = styled.button<ButtonType>`
     }
   }
 
+  & > span {
+    line-height: 0;
+  }
+
   // Size
   ${(props) =>
     props.size === 'sm' &&
@@ -85,6 +98,12 @@ const ButtonCss = styled.button<ButtonType>`
     props.size === 'md' &&
     css`
       height: 38px;
+    `}
+
+    ${(props) =>
+    props.icon &&
+    css`
+      height: auto;
     `}
 
   // Loading

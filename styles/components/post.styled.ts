@@ -8,6 +8,14 @@ export const PostStyled = styled.div`
   & > div {
     padding: 30px 20px;
     background: #fff;
+    & .button-function {
+      display: none;
+    }
+    &:hover {
+      & .button-function {
+        display: inline-flex;
+      }
+    }
   }
   & img {
     max-width: 480px;

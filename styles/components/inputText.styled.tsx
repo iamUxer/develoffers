@@ -10,7 +10,7 @@ export const InputTextStyled = forwardRef(
     return (
       <>
         {type === 'file' && (
-          <InputLabel htmlFor="file">
+          <InputLabel htmlFor={name}>
             {loading && <span>다른 사진 추가</span>}
             {!loading && <span>사진 추가</span>}
           </InputLabel>

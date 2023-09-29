@@ -3,6 +3,9 @@ import { collection, getDocs, limit, orderBy, query } from 'firebase/firestore';
 import { useContext, useEffect, useState } from 'react';
 import Post from './post';
 import { AppContext } from '@/pages/context';
+import styled from '@emotion/styled';
+import ModalPotal from './modalPotal';
+import PostingEditForm from './posting-edit-form';
 
 const Timeline = () => {
   const [posts, setPosts] = useState<PostType[]>([]);
@@ -45,9 +48,14 @@ const Timeline = () => {
 
   return (
     <>
-      {posts.map((post) => {
-        return <Post key={post.id} {...post} />;
-      })}
+      <TimeLineStyled>
+        {posts.map((post) => {
+          return <Post key={post.id} {...post} />;
+        })}
+      </TimeLineStyled>
+      <ModalPotal>
+        <PostingEditForm />
+      </ModalPotal>
     </>
   );
 };
@@ -62,3 +70,12 @@ export type PostType = {
   userName: string;
   id: string;
 };
+
+const TimeLineStyled = styled.div`
+  /* display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  height: 50vh;
+  overflow-y: auto; */
+`;

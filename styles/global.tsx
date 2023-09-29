@@ -10,9 +10,11 @@ const style = css`
       sans-serif;
   }
   body {
+    margin: 0;
     background: #eee;
     color: black;
     letter-spacing: -0.3px;
+    overflow-y: visible;
   }
   div {
     line-height: 0;
@@ -51,6 +53,13 @@ const style = css`
   }
   h3 {
     ${theme.typo.Header_20}
+  }
+  #modal-root {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
 `;
 
