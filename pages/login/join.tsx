@@ -125,8 +125,8 @@ const Join = () => {
 
 export default Join;
 
-export interface FormValues {
+export type FormValues = {
   name: string;
   email: string;
   password: string;
-}
+};

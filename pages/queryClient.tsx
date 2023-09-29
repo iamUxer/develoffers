@@ -23,12 +23,12 @@ export const fetcher = async (props: FetchType) => {
   }
 };
 
-export interface FetchType {
+export type FetchType = {
   method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
   path: string;
   body?: { [key: string]: any };
   params: { [key: string]: any };
-}
+};
 
 export const QueryKeys = {
   POSTS: 'POSTS',

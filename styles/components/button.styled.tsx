@@ -20,14 +20,14 @@ export const ButtonStyled = forwardRef(
   }
 );
 
-export interface ButtonType extends React.HTMLAttributes<HTMLButtonElement> {
+export type ButtonType = React.HTMLAttributes<HTMLButtonElement> & {
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xlg';
   type?: 'button' | 'submit' | 'reset' | undefined;
   color?: string;
   children?: string | React.ReactElement;
   disabled?: boolean;
   htmlFor?: string;
-}
+};
 
 const ButtonCss = styled.button<ButtonType>`
   & > span {

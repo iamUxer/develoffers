@@ -38,22 +38,6 @@ export const InputTextStyled = forwardRef(
   }
 );
 
-interface InputType {
-  name?: string;
-  type?: string | FileList;
-  placeholder?: string;
-  register?: any;
-  id?: string;
-  htmlFor?: string;
-  accept?: string;
-  resize?: boolean;
-  readonly?: boolean;
-  required?: boolean;
-  rows?: number;
-  cols?: number;
-  loading?: boolean;
-}
-
 const InputLabel = styled.label`
   & span {
     /* margin-bottom: -1px; */
@@ -90,3 +74,19 @@ const TextAreaCss = styled.textarea<InputType>`
   resize: none;
   padding: 20px;
 `;
+
+type InputType = {
+  name?: string;
+  type?: string | FileList;
+  placeholder?: string;
+  register?: any;
+  id?: string;
+  htmlFor?: string;
+  accept?: string;
+  resize?: boolean;
+  readonly?: boolean;
+  required?: boolean;
+  rows?: number;
+  cols?: number;
+  loading?: boolean;
+};

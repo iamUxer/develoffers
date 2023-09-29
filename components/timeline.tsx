@@ -54,11 +54,11 @@ const Timeline = () => {
 
 export default Timeline;
 
-export interface PostType {
+export type PostType = {
   createdAt: number;
   photo: string;
   post: string;
   userId: string;
   userName: string;
   id: string;
-}
+};

@@ -119,7 +119,7 @@ const PostingForm = () => {
 
 export default PostingForm;
 
-interface PostingFormValues {
+type PostingFormValues = {
   post: string;
   file: FileList;
-}
+};

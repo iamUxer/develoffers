@@ -76,12 +76,12 @@ export const LoadingIcon = (props: IconType) => {
   );
 };
 
-interface IconType extends React.ClassAttributes<HTMLSpanElement> {
+type IconType = React.ClassAttributes<HTMLSpanElement> & {
   size?: 'xs' | 'sm' | 'md' | 'lg' | undefined;
   color?: string;
   disabled?: boolean;
   rotate?: 'rotate';
-}
+};
 
 const IconCss = styled.span<IconType>`
   vertical-align: middle;

@@ -18,10 +18,10 @@ const errors = {
   'auth/weak-password': 'Password should be at least 6 characters',
 };
 
-export interface FormValues {
+export type FormValues = {
   email: string;
   password: string;
-}
+};
 
 const Login = forwardRef(() => {
   const router = useRouter();
