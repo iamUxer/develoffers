@@ -1,4 +1,4 @@
-import React, { forwardRef, Ref } from 'react';
+import React, { Ref, forwardRef } from 'react';
 import styled from '@emotion/styled';
 import { theme } from '../theme';
 
@@ -6,13 +6,13 @@ export const InputTextStyled = forwardRef(
   (props: InputType, ref: Ref<HTMLInputElement>) => {
     const { name, placeholder, register, type, readonly, loading, ...rest } =
       props;
-    console.log(props);
+    // console.log(props);
     return (
       <>
         {type === 'file' && (
           <InputLabel htmlFor="file">
-            {loading && <span>이미지 +1</span>}
-            {!loading && <span>이미지 추가</span>}
+            {loading && <span>다른 사진 추가</span>}
+            {!loading && <span>사진 추가</span>}
           </InputLabel>
         )}
         {type === 'textarea' && (
@@ -21,7 +21,7 @@ export const InputTextStyled = forwardRef(
             readOnly={readonly}
             placeholder={placeholder}
             {...rest}
-            maxLength={180}
+            maxLength={1000}
           />
         )}
         {type !== 'textarea' && (
@@ -40,7 +40,7 @@ export const InputTextStyled = forwardRef(
 
 interface InputType {
   name?: string;
-  type?: string | File;
+  type?: string | FileList;
   placeholder?: string;
   register?: any;
   id?: string;
@@ -56,7 +56,7 @@ interface InputType {
 
 const InputLabel = styled.label`
   & span {
-    margin-bottom: -1px;
+    /* margin-bottom: -1px; */
   }
   display: inline-flex;
   align-items: center;
@@ -85,7 +85,8 @@ const InputCss = styled.input<InputType>`
 `;
 
 const TextAreaCss = styled.textarea<InputType>`
-  border-radius: 0px;
+  border-radius: 10px;
+  border: none;
   resize: none;
   padding: 20px;
 `;

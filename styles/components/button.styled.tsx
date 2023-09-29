@@ -1,10 +1,10 @@
-import React, { forwardRef, Ref } from 'react';
+import React, { Ref, forwardRef } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { theme } from '../theme';
 
 export const ButtonStyled = forwardRef(
-  (props: ButtonType, ref: Ref<HTMLInputElement>) => {
+  (props: ButtonType, ref: Ref<HTMLButtonElement>) => {
     const { size = 'md', color, type, children, disabled, ...rest } = props;
     return (
       <ButtonCss
@@ -31,7 +31,7 @@ export interface ButtonType extends React.HTMLAttributes<HTMLButtonElement> {
 
 const ButtonCss = styled.button<ButtonType>`
   & > span {
-    margin-bottom: -1px;
+    /* margin-bottom: -1px; */
   }
   display: inline-flex;
   justify-content: center;

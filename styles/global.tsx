@@ -2,8 +2,8 @@ import { Global, css } from '@emotion/react';
 import emotionReset from 'emotion-reset';
 import { theme } from './theme';
 
+// ${emotionReset}
 const style = css`
-  ${emotionReset}
   * {
     box-sizing: border-box;
     font-family: 'Roboto', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial,
@@ -14,6 +14,22 @@ const style = css`
     color: black;
     letter-spacing: -0.3px;
   }
+  div {
+    line-height: 0;
+  }
+  a,
+  p,
+  span {
+    line-height: 150%;
+    margin: unset;
+  }
+
+  ul {
+    margin: unset;
+    padding: unset;
+    list-style-type: none;
+  }
+
   button,
   link,
   a {

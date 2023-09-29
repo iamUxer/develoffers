@@ -1,9 +1,11 @@
+import React, { createContext, useState } from 'react';
 import PostingForm from '@/components/posting-form';
+import Timeline from '@/components/timeline';
 import { auth } from '@/firebase';
-import { ButtonStyled } from '@/styles/components';
 
 const Home = () => {
   const user = auth.currentUser;
+  const [isUpdate, setIsUpdate] = useState(false);
 
   return (
     <>
@@ -11,7 +13,9 @@ const Home = () => {
       {user?.displayName && (
         <>
           <h3>Welcome, {user?.displayName}</h3>
+
           <PostingForm />
+          <Timeline />
         </>
       )}
     </>

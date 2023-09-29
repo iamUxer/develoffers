@@ -19,13 +19,7 @@ const errors = {
   'auth/weak-password': 'Password should be at least 6 characters',
 };
 
-export interface FormValues {
-  name: string;
-  email: string;
-  password: string;
-}
-
-const Join = forwardRef(() => {
+const Join = () => {
   const router = useRouter();
   const [isLoading, setLoading] = useState(false);
   const [isError, setError] = useState('');
@@ -57,6 +51,7 @@ const Join = forwardRef(() => {
       }
       setLoading(false);
     } finally {
+      setLoading(false);
     }
   };
 
@@ -126,6 +121,12 @@ const Join = forwardRef(() => {
       </JoinStyled>
     </>
   );
-});
+};
 
 export default Join;
+
+export interface FormValues {
+  name: string;
+  email: string;
+  password: string;
+}

@@ -6,19 +6,30 @@ export const PostingStyled = styled.div`
   align-items: center;
   max-width: 480px;
   margin: auto;
-  padding: 20px;
   & form {
     position: relative;
     width: 100%;
     & textarea {
       display: block;
       width: 100%;
-      margin-bottom: 20px;
+      & + div {
+        display: flex;
+        position: relative;
+        margin-top: 20px;
+      }
     }
     & button {
       position: absolute;
       right: 0;
       margin-left: 10px;
     }
+    & img {
+      margin-right: 10px;
+      height: 38px;
+      width: auto;
+    }
+  }
+  & + div {
+    margin-top: 30px;
   }
 `;

@@ -19,7 +19,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <>
-      Layout!
+      <span>Layout!</span>
       <ul>
         <li>
           <Link href={'/home'}>

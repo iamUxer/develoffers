@@ -6,6 +6,8 @@ export const palette = {
   default: '#ddd',
   default_color: '#333',
   bright: '#fff',
+  dim: '#bbb',
+  danger: 'red',
   disabled: '#aaa',
   disabled_background: css`
     background-color: #aaa;
