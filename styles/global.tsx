@@ -55,11 +55,9 @@ const style = css`
     ${theme.typo.Header_20}
   }
   #modal-root {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `;
 

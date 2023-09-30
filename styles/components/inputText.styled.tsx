@@ -4,15 +4,23 @@ import { theme } from '../theme';
 
 export const InputTextStyled = forwardRef(
   (props: InputType, ref: Ref<HTMLInputElement>) => {
-    const { name, placeholder, register, type, readonly, loading, ...rest } =
-      props;
+    const {
+      name,
+      placeholder,
+      register,
+      type,
+      readonly,
+      loading,
+      already,
+      ...rest
+    } = props;
     // console.log(props);
     return (
       <>
         {type === 'file' && (
           <InputLabel htmlFor={name}>
-            {loading && <span>다른 사진 추가</span>}
-            {!loading && <span>사진 추가</span>}
+            {already && <span>다른 사진 추가</span>}
+            {!already && <span>사진 추가</span>}
           </InputLabel>
         )}
         {type === 'textarea' && (
@@ -89,4 +97,5 @@ type InputType = {
   rows?: number;
   cols?: number;
   loading?: boolean;
+  already?: boolean;
 };

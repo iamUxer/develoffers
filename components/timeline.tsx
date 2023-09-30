@@ -2,7 +2,7 @@ import { db } from '@/firebase';
 import { collection, getDocs, limit, orderBy, query } from 'firebase/firestore';
 import { useContext, useEffect, useState } from 'react';
 import Post from './post';
-import { AppContext } from '@/pages/context';
+import { AppContext, PostingEditModalContext } from '@/pages/context';
 import styled from '@emotion/styled';
 import ModalPotal from './modalPotal';
 import PostingEditForm from './posting-edit-form';
@@ -10,6 +10,8 @@ import PostingEditForm from './posting-edit-form';
 const Timeline = () => {
   const [posts, setPosts] = useState<PostType[]>([]);
   const { isUpdate, setIsUpdate } = useContext(AppContext);
+  const [isModal, setModal] = useState<boolean>(false);
+  const [isEdit, setEdit] = useState<PostType>();
 
   const fetchPosts = async () => {
     const postsQuery = query(
@@ -47,7 +49,9 @@ const Timeline = () => {
   }, [isUpdate]);
 
   return (
-    <>
+    <PostingEditModalContext.Provider
+      value={{ isModal, setModal, isEdit, setEdit }}
+    >
       <TimeLineStyled>
         {posts.map((post) => {
           return <Post key={post.id} {...post} />;
@@ -56,7 +60,7 @@ const Timeline = () => {
       <ModalPotal>
         <PostingEditForm />
       </ModalPotal>
-    </>
+    </PostingEditModalContext.Provider>
   );
 };
 

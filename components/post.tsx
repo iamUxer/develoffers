@@ -5,14 +5,16 @@ import Link from 'next/link';
 import { DeleteIcon, EditIcon } from './icons';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { deleteObject, ref } from 'firebase/storage';
-import { useContext } from 'react';
-import { AppContext } from '@/pages/context';
+import { useContext, useEffect } from 'react';
+import { AppContext, PostingEditModalContext } from '@/pages/context';
 import { useRouter } from 'next/router';
 
 const Post = (props: PostType) => {
   const { createdAt, photo, post, userId, userName, id } = props;
   const user = auth.currentUser;
   const { isUpdate, setIsUpdate } = useContext(AppContext);
+  const { isModal, setModal } = useContext(PostingEditModalContext);
+  const { isEdit, setEdit } = useContext(PostingEditModalContext);
   const router = useRouter();
 
   const onDelete = async () => {
@@ -35,7 +37,10 @@ const Post = (props: PostType) => {
 
   const onEdit = () => {
     if (user?.uid !== userId) return;
-    router.push('/');
+    // setTimeout(() => {
+    // }, 1000);
+    setEdit(props);
+    setModal(true);
   };
 
   const day = ['일', '월', '화', '수', '목', '금', '토'];

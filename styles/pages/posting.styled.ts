@@ -15,18 +15,22 @@ export const PostingStyled = styled.div`
       & + div {
         display: flex;
         position: relative;
+        justify-content: space-between;
         margin-top: 20px;
+        & > div {
+          display: flex;
+        }
       }
     }
     & button {
-      position: absolute;
-      right: 0;
       margin-left: 10px;
     }
     & img {
-      margin-right: 10px;
       height: 38px;
       width: auto;
+      & + label {
+        margin-left: 10px;
+      }
     }
   }
   & + div {

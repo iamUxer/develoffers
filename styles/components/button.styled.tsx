@@ -37,6 +37,7 @@ export type ButtonType = React.HTMLAttributes<HTMLButtonElement> & {
   disabled?: boolean;
   htmlFor?: string;
   icon?: boolean;
+  bordered?: boolean;
 };
 
 const ButtonCss = styled.button<ButtonType>`
@@ -63,6 +64,23 @@ const ButtonCss = styled.button<ButtonType>`
         return theme.palette.primary;
       default:
         return theme.palette.default_color;
+    }
+  }};
+  border: 1px solid
+    ${(props) => {
+      switch (props.bordered && props.color) {
+        case 'danger':
+          return theme.palette.danger;
+        default:
+          return theme.palette.bright;
+      }
+    }};
+  color: ${(props) => {
+    switch (props.bordered && props.color) {
+      case 'danger':
+        return theme.palette.danger;
+      default:
+        return theme.palette.bright;
     }
   }};
 

@@ -85,17 +85,19 @@ const PostingForm = () => {
           rows={5}
         />
         <div>
-          {previewFile && <img src={isURL} />}
-          <InputTextStyled
-            register={register('file', {
-              onChange: (e) => setFile(true),
-            })}
-            name="file"
-            type="file"
-            id="filexx"
-            accept="image/*"
-            loading={isFile}
-          />
+          <div>
+            {previewFile && <img src={isURL} />}
+            <InputTextStyled
+              register={register('file', {
+                onChange: (e) => setFile(true),
+              })}
+              name="file"
+              type="file"
+              id="file"
+              accept="image/*"
+              already={isFile}
+            />
+          </div>
           {isLoading && (
             <ButtonStyled color="default">
               <>
