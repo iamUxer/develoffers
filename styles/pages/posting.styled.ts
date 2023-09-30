@@ -22,13 +22,15 @@ export const PostingStyled = styled.div`
         }
       }
     }
-    & button {
-      margin-left: 10px;
-    }
     & img {
       height: 38px;
       width: auto;
       & + label {
+        margin-left: 10px;
+      }
+    }
+    & input {
+      & + button {
         margin-left: 10px;
       }
     }

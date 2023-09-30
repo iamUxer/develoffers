@@ -97,5 +97,5 @@ type InputType = {
   rows?: number;
   cols?: number;
   loading?: boolean;
-  already?: boolean;
+  already?: boolean | string;
 };

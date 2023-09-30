@@ -2,14 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { ButtonStyled, InputTextStyled } from '@/styles/components';
 import { PostingStyled } from '@/styles/pages/posting.styled';
 import { useForm } from 'react-hook-form';
-import {
-  addDoc,
-  collection,
-  deleteDoc,
-  deleteField,
-  doc,
-  updateDoc,
-} from 'firebase/firestore';
+import { deleteField, doc, updateDoc } from 'firebase/firestore';
 import { LoadingIcon } from './icons';
 import { auth, db, storage } from '@/firebase';
 import {
@@ -59,6 +52,7 @@ const PostingEditForm = () => {
   }, [isEdit]);
 
   const onSubmit = async (data: PostingEditFormValues) => {
+    console.log(previewFile);
     const { post, editFile } = data;
     const user = auth.currentUser;
 
@@ -77,7 +71,7 @@ const PostingEditForm = () => {
         modifiedAt: Date.now(),
       });
 
-      // 이미지 파일이 있을 때 === 이미지가 교체 됐을 때,
+      // 이미지 변경 없을 때 && 이미지가 교체 됐을 때,
       if (editFile && editFile.length > 0) {
         const compressedFile = await imageCompression(editFile?.[0], options);
 
@@ -89,7 +83,9 @@ const PostingEditForm = () => {
         });
       }
 
-      if (editFile === undefined) {
+      // 이미지 파일 완전 삭제 했을 때
+      if (editFile === undefined && photo) {
+        console.log('??');
         const locationRef = ref(storage, `posts/${user.uid}/${id}`);
         // 스토리지에서 사진 삭제
         await deleteObject(locationRef);
@@ -128,7 +124,9 @@ const PostingEditForm = () => {
           />
           <div>
             <div>
-              {previewFile && <img src={isEditURL} />}
+              {previewFile && previewFile?.length > 0 && (
+                <img src={isEditURL} />
+              )}
               <InputTextStyled
                 register={register('editFile')}
                 name="editFile"
@@ -137,7 +135,7 @@ const PostingEditForm = () => {
                 accept="image/*"
                 already={photo}
               />
-              {previewFile && (
+              {previewFile && previewFile?.length > 0 && (
                 <ButtonStyled color="danger" bordered onClick={onDeleteImg}>
                   사진 삭제
                 </ButtonStyled>

@@ -16,6 +16,7 @@ const PostingForm = () => {
     handleSubmit,
     reset,
     watch,
+    setValue,
   } = useForm<PostingFormValues>({ mode: 'onChange' });
   const [isLoading, setLoading] = useState(false);
   const [isError, setError] = useState('');
@@ -23,11 +24,12 @@ const PostingForm = () => {
   const previewFile = watch('file');
   const [isURL, setURL] = useState('');
   const { isUpdate, setIsUpdate } = useContext(AppContext);
-
+  console.log('isFile::', isFile);
   useEffect(() => {
     if (previewFile && previewFile.length > 0) {
       setURL(URL.createObjectURL(previewFile[0]));
     }
+    console.log(previewFile);
   }, [previewFile]);
 
   const onSubmit = async (data: PostingFormValues) => {
@@ -52,7 +54,7 @@ const PostingForm = () => {
       });
 
       // 이미지 파일이 있을 때,
-      if (file.length > 0) {
+      if (file && file.length > 0) {
         const compressedFile = await imageCompression(file?.[0], options);
 
         const locationRef = ref(storage, `posts/${user.uid}/${doc.id}`);
@@ -74,6 +76,10 @@ const PostingForm = () => {
     }
   };
 
+  const onDeleteImg = () => {
+    setValue('file', undefined);
+  };
+
   return (
     <PostingStyled>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -86,7 +92,7 @@ const PostingForm = () => {
         />
         <div>
           <div>
-            {previewFile && <img src={isURL} />}
+            {previewFile && previewFile.length > 0 && <img src={isURL} />}
             <InputTextStyled
               register={register('file', {
                 onChange: (e) => setFile(true),
@@ -97,6 +103,11 @@ const PostingForm = () => {
               accept="image/*"
               already={isFile}
             />
+            {previewFile && previewFile.length > 0 && (
+              <ButtonStyled color="danger" bordered onClick={onDeleteImg}>
+                사진 삭제
+              </ButtonStyled>
+            )}
           </div>
           {isLoading && (
             <ButtonStyled color="default">
@@ -120,5 +131,5 @@ export default PostingForm;
 
 type PostingFormValues = {
   post: string;
-  file: FileList;
+  file: FileList | undefined;
 };

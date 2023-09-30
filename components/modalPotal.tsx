@@ -36,7 +36,7 @@ export default ModalPotal;
 
 const ModalHeader = styled.div``;
 const ModalOveray = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -44,8 +44,7 @@ const ModalOveray = styled.div`
   background: #00000050;
 `;
 const ModalBody = styled.div`
-  position: absolute;
-  position: absolute;
+  position: fixed;
   top: 10%;
   width: 580px;
   padding: 50px;
