@@ -2,13 +2,14 @@ import React, { createContext, useState } from 'react';
 import PostingForm from '@/components/posting-form';
 import Timeline from '@/components/timeline';
 import { auth } from '@/firebase';
+import { UpdateContext } from '../context';
 
 const Home = () => {
+  const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const user = auth.currentUser;
-  const [isUpdate, setIsUpdate] = useState(false);
 
   return (
-    <>
+    <UpdateContext.Provider value={{ isUpdate, setIsUpdate }}>
       <h2>Home!!</h2>
       {user?.displayName && (
         <>
@@ -18,7 +19,7 @@ const Home = () => {
           <Timeline />
         </>
       )}
-    </>
+    </UpdateContext.Provider>
   );
 };
 

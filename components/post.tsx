@@ -6,13 +6,13 @@ import { DeleteIcon, EditIcon } from './icons';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { deleteObject, ref } from 'firebase/storage';
 import { useContext, useEffect } from 'react';
-import { AppContext, PostingEditModalContext } from '@/pages/context';
+import { UpdateContext, PostingEditModalContext } from '@/pages/context';
 import { useRouter } from 'next/router';
 
 const Post = (props: PostType) => {
   const { createdAt, photo, post, userId, userName, id } = props;
   const user = auth.currentUser;
-  const { isUpdate, setIsUpdate } = useContext(AppContext);
+  const { isUpdate, setIsUpdate } = useContext(UpdateContext);
   const { isModal, setModal } = useContext(PostingEditModalContext);
   const { isEdit, setEdit } = useContext(PostingEditModalContext);
   const router = useRouter();

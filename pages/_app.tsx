@@ -10,12 +10,12 @@ import AuthProvider from '@/components/auth-provider';
 import { QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { getClient } from './queryClient';
-import { AppContext } from './context';
+import { LoginCheckContext } from './context';
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const queryClient = getClient();
   const [isLoading, setLoading] = useState(true);
+  const [isLogin, setLogin] = useState<boolean | null>(null);
   const init = async () => {
     // wait for firebase
     await auth.authStateReady();
@@ -32,14 +32,14 @@ export default function App({ Component, pageProps }: AppProps) {
         <GlobalStyle />
         <QueryClientProvider client={queryClient}>
           <ReactQueryDevtools initialIsOpen={false} />
-          <AuthProvider>
-            <AppContext.Provider value={{ isUpdate, setIsUpdate }}>
+          <LoginCheckContext.Provider value={{ isLogin, setLogin }}>
+            <AuthProvider>
               <Layout>
                 {isLoading && <LoadingScreen />}
                 {!isLoading && <Component {...pageProps} />}
               </Layout>
-            </AppContext.Provider>
-          </AuthProvider>
+            </AuthProvider>
+          </LoginCheckContext.Provider>
         </QueryClientProvider>
       </ThemeProvider>
     </>

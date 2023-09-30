@@ -2,14 +2,14 @@ import { db } from '@/firebase';
 import { collection, getDocs, limit, orderBy, query } from 'firebase/firestore';
 import { useContext, useEffect, useState } from 'react';
 import Post from './post';
-import { AppContext, PostingEditModalContext } from '@/pages/context';
+import { UpdateContext, PostingEditModalContext } from '@/pages/context';
 import styled from '@emotion/styled';
 import ModalPotal from './modalPotal';
 import PostingEditForm from './posting-edit-form';
 
 const Timeline = () => {
   const [posts, setPosts] = useState<PostType[]>([]);
-  const { isUpdate, setIsUpdate } = useContext(AppContext);
+  const { isUpdate, setIsUpdate } = useContext(UpdateContext);
   const [isModal, setModal] = useState<boolean>(false);
   const [isEdit, setEdit] = useState<PostType>();
 
@@ -75,11 +75,4 @@ export type PostType = {
   id: string;
 };
 
-const TimeLineStyled = styled.div`
-  /* display: flex;
-  flex-direction: column;
-  gap: 10px;
-  position: relative;
-  height: 50vh;
-  overflow-y: auto; */
-`;
+const TimeLineStyled = styled.div``;

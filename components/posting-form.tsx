@@ -7,7 +7,7 @@ import { LoadingIcon } from './icons';
 import { auth, db, storage } from '@/firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import imageCompression from 'browser-image-compression';
-import { AppContext } from '@/pages/context';
+import { UpdateContext } from '@/pages/context';
 
 const PostingForm = () => {
   const {
@@ -20,16 +20,15 @@ const PostingForm = () => {
   } = useForm<PostingFormValues>({ mode: 'onChange' });
   const [isLoading, setLoading] = useState(false);
   const [isError, setError] = useState('');
-  const [isFile, setFile] = useState(false);
-  const previewFile = watch('file');
-  const [isURL, setURL] = useState('');
-  const { isUpdate, setIsUpdate } = useContext(AppContext);
-  console.log('isFile::', isFile);
+  const [isFile, setFile] = useState(false); // 파일 유무 체킹 => 인풋 컴포넌트로 패쓰
+  const previewFile = watch('file'); //
+  const [isURL, setURL] = useState(''); // set preview image url
+  const { isUpdate, setIsUpdate } = useContext(UpdateContext); //
+
   useEffect(() => {
     if (previewFile && previewFile.length > 0) {
       setURL(URL.createObjectURL(previewFile[0]));
     }
-    console.log(previewFile);
   }, [previewFile]);
 
   const onSubmit = async (data: PostingFormValues) => {

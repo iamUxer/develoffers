@@ -79,8 +79,8 @@ const ButtonCss = styled.button<ButtonType>`
     switch (props.bordered && props.color) {
       case 'danger':
         return theme.palette.danger;
-      default:
-        return theme.palette.bright;
+      /* default:
+        return theme.palette.bright; */
     }
   }};
 

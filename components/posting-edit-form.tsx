@@ -12,7 +12,7 @@ import {
   uploadBytes,
 } from 'firebase/storage';
 import imageCompression from 'browser-image-compression';
-import { AppContext, PostingEditModalContext } from '@/pages/context';
+import { UpdateContext, PostingEditModalContext } from '@/pages/context';
 
 const PostingEditForm = () => {
   const {
@@ -30,7 +30,7 @@ const PostingEditForm = () => {
   const [isError, setError] = useState('');
   const previewFile = watch('editFile');
   const [isEditURL, setEditURL] = useState('');
-  const { isUpdate, setIsUpdate } = useContext(AppContext);
+  const { isUpdate, setIsUpdate } = useContext(UpdateContext);
 
   const { createdAt, photo, post, userId, userName, id } = isEdit;
 
