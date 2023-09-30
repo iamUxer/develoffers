@@ -8,9 +8,11 @@ import { deleteObject, ref } from 'firebase/storage';
 import { useContext, useEffect } from 'react';
 import { UpdateContext, PostingEditModalContext } from '@/pages/context';
 import { useRouter } from 'next/router';
+import { MobileFilled } from '@ant-design/icons';
+import DateFormatter from './date-formatter';
 
 const Post = (props: PostType) => {
-  const { createdAt, photo, post, userId, userName, id } = props;
+  const { createdAt, modifiedAt, photo, post, userId, userName, id } = props;
   const user = auth.currentUser;
   const { isUpdate, setIsUpdate } = useContext(UpdateContext);
   const { isModal, setModal } = useContext(PostingEditModalContext);
@@ -37,33 +39,22 @@ const Post = (props: PostType) => {
 
   const onEdit = () => {
     if (user?.uid !== userId) return;
-    // setTimeout(() => {
-    // }, 1000);
     setEdit(props);
     setModal(true);
   };
 
-  const day = ['일', '월', '화', '수', '목', '금', '토'];
-  const date = new Date(createdAt);
-  const dateFormat =
-    date.getFullYear() +
-    '년 ' +
-    (date.getMonth() + 1) +
-    '월 ' +
-    date.getDate() +
-    '일 ' +
-    day[date.getDay()] +
-    '요일 ' +
-    date.getHours() +
-    '시 ' +
-    date.getMinutes() +
-    '분 ';
+  const createdDate = DateFormatter(createdAt);
+  let modifiedDate;
+  if (createdAt && modifiedAt) {
+    modifiedDate = DateFormatter(modifiedAt);
+  }
 
   return (
     <PostStyled>
       {photo && <img src={photo} />}
       <div>
-        <span>작성: {dateFormat}</span>
+        <span>작성: {createdDate}</span>
+        {modifiedAt && <span>(수정됨)</span>}
         <Link href={''}>
           {user?.uid === userId && '나'}
           {user?.uid !== userId && userName}

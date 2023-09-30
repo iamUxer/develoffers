@@ -23,9 +23,11 @@ const Timeline = () => {
       const data = await getDocs(postsQuery);
       if (data) {
         const posts = data.docs.map((doc) => {
-          const { createdAt, photo, post, userId, userName } = doc.data();
+          const { createdAt, modifiedAt, photo, post, userId, userName } =
+            doc.data();
           return {
             createdAt,
+            modifiedAt,
             photo,
             post,
             userId,
@@ -68,6 +70,7 @@ export default Timeline;
 
 export type PostType = {
   createdAt: number;
+  modifiedAt?: number;
   photo: string;
   post: string;
   userId: string;

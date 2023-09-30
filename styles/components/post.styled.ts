@@ -24,6 +24,9 @@ export const PostStyled = styled.div`
   & span {
     ${theme.typo.font_small}
     color: ${theme.palette.dim};
+    & + a {
+      margin-left: 10px;
+    }
   }
   & p {
     margin-top: 20px;
