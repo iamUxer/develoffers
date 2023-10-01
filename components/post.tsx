@@ -1,23 +1,23 @@
+import { useContext } from 'react';
+import Link from 'next/link';
+// components
 import { ButtonStyled, PostStyled } from '@/styles/components';
 import { PostType } from './timeline';
-import { auth, db, storage } from '@/firebase';
-import Link from 'next/link';
 import { DeleteIcon, EditIcon } from './icons';
+import DateFormatter from './date-formatter';
+// firebase
+import { auth, db, storage } from '@/firebase';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { deleteObject, ref } from 'firebase/storage';
-import { useContext, useEffect } from 'react';
+// usecontext
 import { UpdateContext, PostingEditModalContext } from '@/pages/context';
-import { useRouter } from 'next/router';
-import { MobileFilled } from '@ant-design/icons';
-import DateFormatter from './date-formatter';
 
 const Post = (props: PostType) => {
-  const { createdAt, modifiedAt, photo, post, userId, userName, id } = props;
   const user = auth.currentUser;
   const { isUpdate, setIsUpdate } = useContext(UpdateContext);
   const { isModal, setModal } = useContext(PostingEditModalContext);
   const { isEdit, setEdit } = useContext(PostingEditModalContext);
-  const router = useRouter();
+  const { createdAt, modifiedAt, photo, post, userId, userName, id } = props;
 
   const onDelete = async () => {
     const isSure = confirm('확인을 누르면 삭제됩니다.');
