@@ -38,6 +38,7 @@ export type ButtonType = React.HTMLAttributes<HTMLButtonElement> & {
   htmlFor?: string;
   icon?: boolean;
   bordered?: boolean;
+  onlyIcon?: boolean;
 };
 
 const ButtonCss = styled.button<ButtonType>`
@@ -47,7 +48,14 @@ const ButtonCss = styled.button<ButtonType>`
   border-radius: 50px;
   border: none;
   font-size: 14px;
-  padding: 10px 20px;
+  padding: ${(props) => {
+    switch (props.onlyIcon) {
+      case true:
+        return '10px 12px !important';
+      default:
+        return '10px 20px';
+    }
+  }};
   background: ${(props) => {
     switch (props.color) {
       case 'primary':
@@ -105,6 +113,13 @@ const ButtonCss = styled.button<ButtonType>`
   }
 
   // Size
+  ${(props) =>
+    props.size === 'xs' &&
+    css`
+      height: 22px;
+      font-size: 12px;
+      padding: 0 15px;
+    `}
   ${(props) =>
     props.size === 'sm' &&
     css`

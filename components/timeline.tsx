@@ -1,5 +1,12 @@
-import { db } from '@/firebase';
-import { collection, getDocs, limit, orderBy, query } from 'firebase/firestore';
+import { auth, db } from '@/firebase';
+import {
+  collection,
+  getDocs,
+  limit,
+  orderBy,
+  query,
+  where,
+} from 'firebase/firestore';
 import { useContext, useEffect, useState } from 'react';
 import Post from './post';
 import { UpdateContext, PostingEditModalContext } from '@/pages/context';
@@ -10,8 +17,14 @@ import PostingEditForm from './posting-edit-form';
 const Timeline = () => {
   const [posts, setPosts] = useState<PostType[]>([]);
   const { isUpdate, setIsUpdate } = useContext(UpdateContext);
+  const { isProfile, setProfile } = useContext(UpdateContext);
   const [isModal, setModal] = useState<boolean>(false);
   const [isEdit, setEdit] = useState<PostType>();
+  const user = auth.currentUser;
+
+  console.log(isProfile);
+
+  useEffect(() => {}, []);
 
   const fetchPosts = async () => {
     const postsQuery = query(
@@ -19,8 +32,21 @@ const Timeline = () => {
       orderBy('createdAt', 'desc'),
       limit(25) // 불러오기 갯수 제한
     );
+
+    const profilePostsQuery = query(
+      collection(db, 'posts'),
+      where('userId', '==', user?.uid),
+      orderBy('createdAt', 'desc'),
+      limit(25)
+    );
     try {
-      const data = await getDocs(postsQuery);
+      let data;
+      if (!isProfile) {
+        data = await getDocs(postsQuery);
+      }
+      if (isProfile) {
+        data = await getDocs(profilePostsQuery);
+      }
       if (data) {
         const posts = data.docs.map((doc) => {
           const { createdAt, modifiedAt, photo, post, userId, userName } =

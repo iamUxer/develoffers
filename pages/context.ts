@@ -14,11 +14,15 @@ export const LoginCheckContext = createContext<LoginCheckContextProps>({
 export type UpdateContextProps = {
   isUpdate?: boolean | undefined;
   setIsUpdate: (value: boolean) => void;
+  isProfile?: boolean | undefined;
+  setProfile?: (value: boolean) => void;
 };
 // 업데이트 컨텍스트 초기값 셋팅
 export const UpdateContext = createContext<UpdateContextProps>({
   isUpdate: false,
   setIsUpdate: () => {},
+  isProfile: false,
+  setProfile: () => {},
 });
 
 // 포스팅 수정 모달 타입 정의

@@ -1,24 +1,52 @@
-import { ProfileUploaderType } from '@/components/profile-uploader';
 import styled from '@emotion/styled';
 import { theme } from '../theme';
 
-export const ProfileUploaderStyled = styled.div<ProfileUploaderType>`
+export const ProfileUploaderStyled = styled.div`
+  margin-bottom: 30px;
   & form {
     display: grid;
     grid-auto-columns: max-content;
     justify-content: center;
     gap: 10px;
+    position: relative;
+    & > button {
+      position: absolute;
+      top: 0;
+      left: calc(50% + 15px);
+      z-index: 1;
+    }
   }
-  & input {
+  & input[type='file'] {
     display: none;
   }
+  & input[type='text'] {
+    &:read-only {
+      text-align: center;
+      &:hover {
+        cursor: default;
+      }
+      &:focus-visible {
+        outline: none;
+      }
+      &::placeholder {
+        font-weight: 600;
+        color: ${theme.palette.primary};
+      }
+    }
+  }
+
   & label {
     display: flex;
     margin: auto;
     width: 60px;
     height: 60px;
     &:hover {
-      cursor: pointer;
+      cursor: pointer !important;
+    }
+    &:read-only {
+      &:hover {
+        cursor: default !important;
+      }
     }
     & span,
     & img {
@@ -36,6 +64,17 @@ export const ProfileUploaderStyled = styled.div<ProfileUploaderType>`
         position: absolute;
         bottom: -4px;
         fill: ${theme.palette.bg_primary};
+      }
+    }
+    & + div {
+      display: flex;
+      & input {
+        & + button {
+          margin-left: 5px;
+          & + button {
+            margin-left: 5px;
+          }
+        }
       }
     }
   }

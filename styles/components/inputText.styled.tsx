@@ -38,6 +38,7 @@ export const InputTextStyled = forwardRef(
             name={name}
             placeholder={placeholder}
             type={type}
+            readOnly={readonly}
             {...rest}
           />
         )}

@@ -6,6 +6,7 @@ import { UpdateContext } from '../context';
 
 const Home = () => {
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
+  const [isProfile, setProfile] = useState<boolean>(false);
   const user = auth.currentUser;
 
   return (
