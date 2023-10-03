@@ -5,7 +5,6 @@ import { UpdateContext } from '../../components/context';
 import Timeline from '@/components/timeline';
 import styled from '@emotion/styled';
 import { theme } from '@/styles/theme';
-import Link from 'next/link';
 
 const AboutThisSite = () => {
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
@@ -27,12 +26,6 @@ const AboutThisSite = () => {
       {user?.email === 'bonethecomer@gmail.com' && <PostingForm />}
       {user && (
         <TempStyled>
-          <p>
-            git repogitory : &nbsp;
-            <Link href="https://github.com/iamUxer/develoffers">
-              https://github.com/iamUxer/develoffers
-            </Link>
-          </p>
           <h3>개발 스펙</h3>
           <ol>
             <li>Next.js, SWC, Typescript 셋팅</li>
