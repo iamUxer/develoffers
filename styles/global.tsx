@@ -35,6 +35,7 @@ const style = css`
   button,
   link,
   a {
+    font-size: 14px;
     &:hover {
       cursor: pointer;
     }

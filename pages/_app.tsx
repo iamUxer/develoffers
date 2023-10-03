@@ -15,10 +15,14 @@ import { LoginCheckContext } from './context';
 export default function App({ Component, pageProps }: AppProps) {
   const queryClient = getClient();
   const [isLoading, setLoading] = useState(true);
-  const [isLogin, setLogin] = useState<boolean | null>(null);
+  const [isLogin, setLogin] = useState(false);
   const init = async () => {
     // wait for firebase
     await auth.authStateReady();
+    const user = await auth.currentUser;
+    if (user) {
+      setLogin(true);
+    }
     setLoading(false);
   };
 
@@ -32,13 +36,15 @@ export default function App({ Component, pageProps }: AppProps) {
         <GlobalStyle />
         <QueryClientProvider client={queryClient}>
           <ReactQueryDevtools initialIsOpen={false} />
-          <LoginCheckContext.Provider value={{ isLogin, setLogin }}>
-            <AuthProvider>
-              <Layout>
+          <LoginCheckContext.Provider
+            value={{ isLogin, setLogin, isLoading, setLoading }}
+          >
+            <Layout>
+              <AuthProvider>
                 {isLoading && <LoadingScreen />}
                 {!isLoading && <Component {...pageProps} />}
-              </Layout>
-            </AuthProvider>
+              </AuthProvider>
+            </Layout>
           </LoginCheckContext.Provider>
         </QueryClientProvider>
       </ThemeProvider>

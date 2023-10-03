@@ -1,34 +1,31 @@
 import { auth } from '@/firebase';
 import { LoginCheckContext } from '@/pages/context';
 import { useRouter } from 'next/router';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
+import { clearScreenDown } from 'readline';
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const router = useRouter();
-  const [isLoading, setLoading] = useState();
+  const { isLoading, setLoading } = useContext(LoginCheckContext);
   const { isLogin, setLogin } = useContext(LoginCheckContext);
-
+  const router = useRouter();
   const checkedUser = async () => {
     try {
-      const user = await auth.currentUser;
-      if (user) {
-        setLogin(true);
+      if (isLogin) {
         router.push('/home');
       }
       // 첫 렌더링 시 초기값을 null로 주어, 로그인 체킹 후의 false와 완전히 구별하기 위함
       // 첫 렌더링 시 초기값을 false로 주면 로그인 체킹 전 부터 /login으로 진입해버린다.
-      if (!user && isLogin !== null) {
-        setLogin(false);
+      if (!isLogin) {
         router.push('/login');
       }
     } catch (error) {
-      console.log(error);
+      console.log('auth provider::', error);
     }
   };
 
   useEffect(() => {
     checkedUser();
-  }, []);
+  }, [isLogin]);
 
   return <>{children}</>;
 };

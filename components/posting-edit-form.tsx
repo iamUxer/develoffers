@@ -29,16 +29,14 @@ const PostingEditForm = () => {
   const { isEdit, setEdit } = useContext(PostingEditModalContext);
   const [isError, setError] = useState('');
   const previewFile = watch('editFile');
-  const [isEditURL, setEditURL] = useState('');
+  const [isURL, setURL] = useState('');
   const { isUpdate, setIsUpdate } = useContext(UpdateContext);
 
   const { createdAt, photo, post, userId, userName, id } = isEdit;
 
-  console.log('posting edit previewFile::', previewFile);
-
   useEffect(() => {
-    if (previewFile && previewFile.length > 0) {
-      setEditURL(URL.createObjectURL(previewFile[0]));
+    if (previewFile && previewFile !== 'deleted' && previewFile.length > 0) {
+      setURL(URL.createObjectURL(previewFile[0]));
     }
   }, [previewFile]);
 
@@ -48,7 +46,7 @@ const PostingEditForm = () => {
 
   useEffect(() => {
     setValue('post', post);
-    setEditURL(photo);
+    setURL(photo);
   }, [isEdit]);
 
   const onSubmit = async (data: PostingEditFormValues) => {
@@ -66,13 +64,13 @@ const PostingEditForm = () => {
 
     try {
       setLoading(true);
-      const update = await updateDoc(doc(db, `posts/${id}`), {
+      await updateDoc(doc(db, `posts/${id}`), {
         post,
         modifiedAt: Date.now(),
       });
 
-      // 이미지 변경 없을 때 && 이미지가 교체 됐을 때,
-      if (editFile && editFile.length > 0) {
+      // 이미지가 교체 됐을 때,
+      if (editFile !== 'deleted' && editFile.length > 0) {
         const compressedFile = await imageCompression(editFile?.[0], options);
 
         const locationRef = ref(storage, `posts/${user.uid}/${id}`);
@@ -84,8 +82,7 @@ const PostingEditForm = () => {
       }
 
       // 이미지 파일 완전 삭제 했을 때
-      if (editFile === undefined && photo) {
-        console.log('??');
+      if (editFile === 'deleted') {
         const locationRef = ref(storage, `posts/${user.uid}/${id}`);
         // 스토리지에서 사진 삭제
         await deleteObject(locationRef);
@@ -107,7 +104,8 @@ const PostingEditForm = () => {
   };
 
   const onDeleteImg = () => {
-    setValue('editFile', undefined);
+    setValue('editFile', 'deleted');
+    setURL('');
   };
 
   return (
@@ -124,9 +122,7 @@ const PostingEditForm = () => {
           />
           <div>
             <div>
-              {previewFile && previewFile?.length > 0 && (
-                <img src={isEditURL} />
-              )}
+              {isURL && <img src={isURL} />}
               <InputTextStyled
                 register={register('editFile')}
                 name="editFile"
@@ -135,7 +131,7 @@ const PostingEditForm = () => {
                 accept="image/*"
                 already={photo}
               />
-              {previewFile && previewFile?.length > 0 && (
+              {isURL && (
                 <ButtonStyled color="danger" bordered onClick={onDeleteImg}>
                   사진 삭제
                 </ButtonStyled>
@@ -164,5 +160,5 @@ export default PostingEditForm;
 
 type PostingEditFormValues = {
   post: string;
-  editFile: FileList | undefined;
+  editFile: FileList | 'deleted';
 };

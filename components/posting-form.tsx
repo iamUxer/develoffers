@@ -23,7 +23,7 @@ const PostingForm = () => {
   const [isFile, setFile] = useState(false); // 파일 유무 체킹 => 인풋 컴포넌트로 패쓰
   const previewFile = watch('file'); //
   const [isURL, setURL] = useState(''); // set preview image url
-  const { isUpdate, setIsUpdate } = useContext(UpdateContext); //
+  const { setIsUpdate } = useContext(UpdateContext); //
 
   useEffect(() => {
     if (previewFile && previewFile.length > 0) {
@@ -76,7 +76,8 @@ const PostingForm = () => {
   };
 
   const onDeleteImg = () => {
-    setValue('file', undefined);
+    reset();
+    setURL('');
   };
 
   return (
@@ -85,13 +86,13 @@ const PostingForm = () => {
         <InputTextStyled
           register={register('post')}
           name="post"
-          placeholder="뭐할래?"
+          placeholder="자유롭게 글을 써보세요."
           type="textarea"
           rows={5}
         />
         <div>
           <div>
-            {previewFile && previewFile.length > 0 && <img src={isURL} />}
+            {isURL && <img src={isURL} />}
             <InputTextStyled
               register={register('file', {
                 onChange: (e) => setFile(true),
@@ -102,7 +103,7 @@ const PostingForm = () => {
               accept="image/*"
               already={isFile}
             />
-            {previewFile && previewFile.length > 0 && (
+            {isURL && (
               <ButtonStyled color="danger" bordered onClick={onDeleteImg}>
                 사진 삭제
               </ButtonStyled>

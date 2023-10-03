@@ -22,8 +22,6 @@ const Timeline = () => {
   const [isEdit, setEdit] = useState<PostType>();
   const user = auth.currentUser;
 
-  console.log(isProfile);
-
   useEffect(() => {}, []);
 
   const fetchPosts = async () => {
@@ -41,9 +39,11 @@ const Timeline = () => {
     );
     try {
       let data;
+      // '/home' => 모든 사용자 포스팅 보여주기
       if (!isProfile) {
         data = await getDocs(postsQuery);
       }
+      // '/profile' => 내 포스팅만 보기
       if (isProfile) {
         data = await getDocs(profilePostsQuery);
       }
@@ -68,7 +68,6 @@ const Timeline = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      //loading false
     }
   };
 

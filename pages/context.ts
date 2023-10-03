@@ -4,11 +4,15 @@ import { createContext } from 'react';
 export type LoginCheckContextProps = {
   isLogin?: boolean | null;
   setLogin: (value: boolean) => void;
+  isLoading?: boolean | null;
+  setLoading: (value: boolean) => void;
 };
 // 로그인 체크 컨텍스트 초기값 셋팅
 export const LoginCheckContext = createContext<LoginCheckContextProps>({
   isLogin: null,
   setLogin: () => {},
+  isLoading: null,
+  setLoading: () => {},
 });
 // 업데이트 타입 정의
 export type UpdateContextProps = {
