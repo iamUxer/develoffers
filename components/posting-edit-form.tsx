@@ -50,7 +50,6 @@ const PostingEditForm = () => {
   }, [isEdit]);
 
   const onSubmit = async (data: PostingEditFormValues) => {
-    console.log(previewFile);
     const { post, editFile } = data;
     const user = auth.currentUser;
 

@@ -24,7 +24,6 @@ const Timeline = () => {
   const user = auth.currentUser;
 
   const fetchPosts = async () => {
-    console.log(isAbout, isProfile);
     const postsQuery = query(
       collection(db, 'posts'),
       orderBy('createdAt', 'desc'),
@@ -55,10 +54,10 @@ const Timeline = () => {
         data = await getDocs(profilePostsQuery);
       }
       // '/about' => about만 보기
-      if (isAbout) {
-        console.log('??');
-        data = await getDocs(aboutQuery);
-      }
+      // if (isAbout) {
+      //   console.log('??');
+      //   data = await getDocs(aboutQuery);
+      // }
       if (data) {
         const posts = data.docs.map((doc) => {
           const { createdAt, modifiedAt, photo, post, userId, userName } =
