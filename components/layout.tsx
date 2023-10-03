@@ -69,16 +69,20 @@ export default Layout;
 
 const Nav = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   padding: 0 0 0 10px;
   width: 100%;
   background: ${theme.palette.bright};
   img {
+    flex: 1;
     height: 32px;
   }
   ul {
     display: flex;
+    flex: auto;
     align-items: center;
     justify-content: flex-end;
     height: 40px;
