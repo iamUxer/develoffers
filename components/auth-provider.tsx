@@ -1,5 +1,5 @@
 import { auth } from '@/firebase';
-import { LoginCheckContext } from '@/pages/context';
+import { LoginCheckContext } from '@/components/context';
 import { useRouter } from 'next/router';
 import { useContext, useEffect } from 'react';
 import { clearScreenDown } from 'readline';

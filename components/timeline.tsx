@@ -9,7 +9,7 @@ import {
 } from 'firebase/firestore';
 import { useContext, useEffect, useState } from 'react';
 import Post from './post';
-import { UpdateContext, PostingEditModalContext } from '@/pages/context';
+import { UpdateContext, PostingEditModalContext } from '@/components/context';
 import styled from '@emotion/styled';
 import ModalPotal from './modalPotal';
 import PostingEditForm from './posting-edit-form';

@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import { auth } from '@/firebase';
 import { ButtonStyled } from '@/styles/components';
 import { useContext, useState } from 'react';
-import { LoginCheckContext } from '@/pages/context';
+import { LoginCheckContext } from '@/components/context';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setLoading] = useState(true);

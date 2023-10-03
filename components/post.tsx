@@ -10,7 +10,7 @@ import { auth, db, storage } from '@/firebase';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { deleteObject, ref } from 'firebase/storage';
 // usecontext
-import { UpdateContext, PostingEditModalContext } from '@/pages/context';
+import { UpdateContext, PostingEditModalContext } from '@/components/context';
 
 const Post = (props: PostType) => {
   const user = auth.currentUser;

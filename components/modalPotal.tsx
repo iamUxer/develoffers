@@ -1,7 +1,7 @@
 import React, { ReactElement, useContext, useEffect, useState } from 'react';
 import ReactDom, { createPortal } from 'react-dom';
 import styled from '@emotion/styled';
-import { UpdateContext, PostingEditModalContext } from '@/pages/context';
+import { UpdateContext, PostingEditModalContext } from '@/components/context';
 
 const ModalPotal = ({ children }: { children: ReactElement }) => {
   const { isModal, setModal } = useContext(PostingEditModalContext);

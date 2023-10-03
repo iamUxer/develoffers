@@ -9,8 +9,8 @@ import { auth } from '@/firebase';
 import AuthProvider from '@/components/auth-provider';
 import { QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import { getClient } from './queryClient';
-import { LoginCheckContext } from './context';
+import { getClient } from '../components/queryClient';
+import { LoginCheckContext } from '../components/context';
 
 export default function App({ Component, pageProps }: AppProps) {
   const queryClient = getClient();

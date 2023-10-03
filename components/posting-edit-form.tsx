@@ -12,7 +12,7 @@ import {
   uploadBytes,
 } from 'firebase/storage';
 import imageCompression from 'browser-image-compression';
-import { UpdateContext, PostingEditModalContext } from '@/pages/context';
+import { UpdateContext, PostingEditModalContext } from '@/components/context';
 
 const PostingEditForm = () => {
   const {

@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import PostingForm from '@/components/posting-form';
 import Timeline from '@/components/timeline';
 import { auth } from '@/firebase';
-import { LoginCheckContext, UpdateContext } from '../context';
+import { LoginCheckContext, UpdateContext } from '../../components/context';
 import { useRouter } from 'next/router';
 
 const Home = () => {

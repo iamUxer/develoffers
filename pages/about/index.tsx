@@ -1,7 +1,7 @@
 import PostingForm from '@/components/posting-form';
 import { auth } from '@/firebase';
 import { useEffect, useState } from 'react';
-import { UpdateContext } from '../context';
+import { UpdateContext } from '../../components/context';
 import Timeline from '@/components/timeline';
 import styled from '@emotion/styled';
 import { theme } from '@/styles/theme';

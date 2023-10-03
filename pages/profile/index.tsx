@@ -2,7 +2,7 @@ import ProfileUploader from '@/components/profile-uploader';
 import Timeline from '@/components/timeline';
 import { auth } from '@/firebase';
 import { useContext, useEffect, useState } from 'react';
-import { LoginCheckContext, UpdateContext } from '../context';
+import { LoginCheckContext, UpdateContext } from '../../components/context';
 import PostingForm from '@/components/posting-form';
 import { useRouter } from 'next/router';
 

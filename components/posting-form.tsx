@@ -7,7 +7,7 @@ import { LoadingIcon } from './icons';
 import { auth, db, storage } from '@/firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import imageCompression from 'browser-image-compression';
-import { UpdateContext } from '@/pages/context';
+import { UpdateContext } from '@/components/context';
 
 const PostingForm = () => {
   const {
