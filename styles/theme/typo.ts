@@ -17,6 +17,11 @@ export const typo = {
     line-height: 150%;
     font-weight: 700;
   `,
+  Header_18: css`
+    font-size: ${calcRem(18)};
+    line-height: 150%;
+    font-weight: 700;
+  `,
   font_small: css`
     font-size: ${calcRem(14)};
   `,

@@ -31,7 +31,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <Nav>
-        <img src={'/logo.png'} alt="" />
+        <Link href={'/'}>
+          <img src={'/logo.png'} alt="" />
+        </Link>
         <ul>
           <li>
             <Link href={'/home'}>홈</Link>
@@ -89,6 +91,7 @@ const Nav = styled.div`
 `;
 
 const StyledLayout = styled.div`
+  /* display: flex; */
   padding: 20px;
   h2 {
     margin: auto;

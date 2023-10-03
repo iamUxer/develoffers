@@ -30,7 +30,7 @@ const Profile = () => {
     <UpdateContext.Provider
       value={{ isUpdate, setIsUpdate, isProfile, setProfile }}
     >
-      <h2>Profile</h2>
+      <h2>프로필, 내 포스팅</h2>
       <ProfileUploader />
       <PostingForm />
       <Timeline />

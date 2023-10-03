@@ -18,13 +18,13 @@ const Timeline = () => {
   const [posts, setPosts] = useState<PostType[]>([]);
   const { isUpdate, setIsUpdate } = useContext(UpdateContext);
   const { isProfile, setProfile } = useContext(UpdateContext);
+  const { isAbout, setAbout } = useContext(UpdateContext);
   const [isModal, setModal] = useState<boolean>(false);
   const [isEdit, setEdit] = useState<PostType>();
   const user = auth.currentUser;
 
-  useEffect(() => {}, []);
-
   const fetchPosts = async () => {
+    console.log(isAbout, isProfile);
     const postsQuery = query(
       collection(db, 'posts'),
       orderBy('createdAt', 'desc'),
@@ -37,6 +37,13 @@ const Timeline = () => {
       orderBy('createdAt', 'desc'),
       limit(25)
     );
+
+    const aboutQuery = query(
+      collection(db, 'about'),
+      where('userId', '==', 'txbrBzvRJQXGFBmsX2wmF3q5uo73'),
+      // orderBy('createdAt', 'desc'),
+      limit(25)
+    );
     try {
       let data;
       // '/home' => 모든 사용자 포스팅 보여주기
@@ -46,6 +53,11 @@ const Timeline = () => {
       // '/profile' => 내 포스팅만 보기
       if (isProfile) {
         data = await getDocs(profilePostsQuery);
+      }
+      // '/about' => about만 보기
+      if (isAbout) {
+        console.log('??');
+        data = await getDocs(aboutQuery);
       }
       if (data) {
         const posts = data.docs.map((doc) => {

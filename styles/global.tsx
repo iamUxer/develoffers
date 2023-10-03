@@ -31,11 +31,15 @@ const style = css`
     padding: unset;
     list-style-type: none;
   }
+  li {
+    line-height: 150%;
+  }
 
   button,
   link,
   a {
     font-size: 14px;
+
     &:hover {
       cursor: pointer;
     }
@@ -46,6 +50,11 @@ const style = css`
       color: #0083ff;
     }
   }
+  a {
+    & * {
+      color: #0083ff !important;
+    }
+  }
   h1 {
     ${theme.typo.Header_28}
   }
@@ -54,6 +63,9 @@ const style = css`
   }
   h3 {
     ${theme.typo.Header_20}
+  }
+  h4 {
+    ${theme.typo.Header_18}
   }
   #modal-root {
     display: flex;

@@ -137,7 +137,7 @@ const ProfileUploader = () => {
   return (
     <ProfileUploaderStyled>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {isEdit && !isDelete === true && photo !== 'null' && (
+        {isEdit && isDelete && photo !== 'null' && (
           <ButtonStyled
             type="button"
             color="danger"
@@ -174,7 +174,7 @@ const ProfileUploader = () => {
               isDelete) && <ProfileIcon size={'lg'} />
           }
         </label>
-        <div>
+        <div className={isEdit ? 'isEdit' : ''}>
           <InputTextStyled
             register={register('displayName')}
             name={'displayName'}

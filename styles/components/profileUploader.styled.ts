@@ -68,6 +68,10 @@ export const ProfileUploaderStyled = styled.div`
     }
     & + div {
       display: flex;
+      margin-left: 45px;
+      &.isEdit {
+        margin-left: 90px;
+      }
       & input {
         & + button {
           margin-left: 5px;
