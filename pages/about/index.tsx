@@ -33,7 +33,7 @@ const AboutThisSite = () => {
         <h3>개발 스펙</h3>
         <ol>
           <li>Next.js, SWC, Typescript 셋팅</li>
-          <li>@emotion styled 사용 (UI 컴포넌트 라이브러리 별도 제작)</li>
+          <li>@emotion styled 사용 (UI 컴포넌트 라이브러리 제작)</li>
           <li>useContext, react-hook-form</li>
           <li>
             서버 리스 셋팅 - Firebase (authentication, firestore, storage)
@@ -42,15 +42,16 @@ const AboutThisSite = () => {
         <h3>개발 이슈</h3>
         <h4>Done</h4>
         <ol>
-          <li>사용자 로그인에 따른 상태 제어 useContext 사용하기</li>
+          <li>firebase 셋팅</li>
           <li>
-            내가 쓴 글만 불러오기 - firebase query ⇒ 타임라인 컴포넌트
-            재사용하기
+            서버 리스를 위한 firebase 셋팅 - (authentication, firestore,
+            storage, hosting)
           </li>
-          <li>프로필 이름, 사진 수정하기, 사진 완전 삭제</li>
-          <li>
-            서버 리스 셋팅 - Firebase (authentication, firestore, storage)
-          </li>
+          <li>CRUD 작성, firebase API 적용, async await</li>
+          <li>사용자, 로그인 상태 제어, useContext 사용하기</li>
+          <li>타임라인 컴포넌트 재사용하기</li>
+          <li>프로필 이름, 사진 수정하기, 사진 완전 삭제 등</li>
+          <li>배포하기</li>
         </ol>
         <h4>To-Do</h4>
         <ol>
@@ -59,9 +60,8 @@ const AboutThisSite = () => {
           <li>yup + react-hook-form으로 유효성 체크하기</li>
           <li>정규식 적용</li>
           <li>지도 API ⇒ 위치 넣기</li>
-          <li>react-query 사용하기</li>
-          <li>recoil 사용하기</li>
           <li>로컬서버 구축하기</li>
+          <li>react-query, recoil 적용</li>
         </ol>
       </TempStyled>
       {/* {user && <Timeline />} */}
