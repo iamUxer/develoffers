@@ -24,8 +24,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     }
   };
   const onLogIn = async () => {
-    router.push('/login');
     setLogin(true);
+    router.push('/home');
   };
 
   return (

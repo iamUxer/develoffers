@@ -56,7 +56,7 @@ const ProfileUploader = () => {
     const { profileFile, displayName } = data;
 
     // 로그인 상태가 아니거나, 변경 사항이 없을 때, 종료
-    if (!user || (!profileFile && displayName === ('' || null || undefined))) {
+    if (!user || (!profileFile && displayName?.trim().length !== 0)) {
       setPreview('');
       setValue('profileFile', undefined);
       setValue('displayName', `${user?.displayName}`);

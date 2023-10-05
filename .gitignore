@@ -38,5 +38,7 @@ next-env.d.ts
 .firebase
 .next
 .gitignore
+firebase.ts
 firebase.json
 .firebaserc
+.env
