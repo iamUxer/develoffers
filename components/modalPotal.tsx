@@ -20,7 +20,7 @@ const ModalPotal = ({ children }: { children: ReactElement }) => {
   return isModal ? (
     createPortal(
       <>
-        <ModalOveray onClick={clickOveray}>overay</ModalOveray>
+        <ModalOveray onClick={clickOveray} />
         <ModalHeader></ModalHeader>
         <ModalBody>{children}</ModalBody>
         <ModalFooter></ModalFooter>

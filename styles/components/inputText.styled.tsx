@@ -71,6 +71,7 @@ const InputLabel = styled.label`
 
 const InputCss = styled.input<InputType>`
   display: ${(prop) => prop.type === 'file' && 'none'};
+  height: 38px;
   border-radius: 50px;
   border: none;
   font-size: 14px;

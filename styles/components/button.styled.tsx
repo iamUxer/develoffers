@@ -111,6 +111,11 @@ const ButtonCss = styled.button<ButtonType>`
   & > span {
     line-height: 0;
   }
+  & span {
+    &.anticon {
+      margin-left: 6px;
+    }
+  }
 
   // Size
   ${(props) =>
@@ -133,7 +138,7 @@ const ButtonCss = styled.button<ButtonType>`
       height: 38px;
     `}
 
-    ${(props) =>
+  ${(props) =>
     props.icon &&
     css`
       height: auto;
@@ -145,10 +150,4 @@ const ButtonCss = styled.button<ButtonType>`
     css`
       ${theme.palette.disabled_background}
     `}
-
-    & span {
-    & .anticon {
-      margin-left: 6px;
-    }
-  }
 `;

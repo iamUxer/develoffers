@@ -101,7 +101,7 @@ const Join = () => {
           )}
           {!isLoading && (
             <ButtonStyled type="submit" color="primary">
-              Join
+              가입하기
             </ButtonStyled>
           )}
           {isError && <p>{isError}</p>}
@@ -114,7 +114,7 @@ const Join = () => {
 
         <ButtonStyled type="submit" color="default" onClick={onGithub}>
           <>
-            Log in with Github
+            깃허브로 가입하기
             <GithubOutlined />
           </>
         </ButtonStyled>

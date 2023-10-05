@@ -1,7 +1,7 @@
-import { ButtonStyled, InputTextStyled } from '@/styles/components';
-import { ProfileUploaderStyled } from '@/styles/components/profileUploader.styled';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { ButtonStyled, InputTextStyled } from '@/styles/components';
+import { ProfileUploaderStyled } from '@/styles/components/profileUploader.styled';
 import {
   CheckIcon,
   CloseIcon,
@@ -9,7 +9,6 @@ import {
   ProfileIcon,
   UturnLeftIcon,
 } from './icons';
-import { auth, storage } from '@/firebase';
 import imageCompression from 'browser-image-compression';
 import {
   deleteObject,
@@ -17,6 +16,7 @@ import {
   ref,
   uploadBytes,
 } from 'firebase/storage';
+import { auth, storage } from '@/firebase';
 import { updateProfile } from 'firebase/auth';
 
 const ProfileUploader = () => {
@@ -29,12 +29,11 @@ const ProfileUploader = () => {
     setFocus,
     setValue,
   } = useForm<ProfileFormValues>({ mode: 'onChange' });
-  const previewFile = watch('profileFile'); // 이미지 프리뷰 와칭
-  const [isPreview, setPreview] = useState<string | undefined>(''); // set preview image url
+  const previewFile = watch('profileFile');
+  const [isPreview, setPreview] = useState<string | undefined>('');
   const user = auth.currentUser;
   const photo = user?.photoURL;
   const [isEdit, setEdit] = useState(false);
-  const [isDisplayName, setDisplayName] = useState(user?.displayName);
   const [isDelete, setDelete] = useState(false);
 
   useEffect(() => {
@@ -52,6 +51,7 @@ const ProfileUploader = () => {
     setPreview(undefined);
     setDelete(true);
   };
+
   const onSubmit = async (data: ProfileFormValues) => {
     const { profileFile, displayName } = data;
 
@@ -67,60 +67,66 @@ const ProfileUploader = () => {
     }
 
     const options = {
-      maxSizeMB: 1, // 허용하는 최대 사이즈 지정
-      maxWidthOrHeight: 800, // 허용하는 최대 width, height 값 지정
-      useWebWorker: true, // webworker 사용 여부
+      maxSizeMB: 1,
+      maxWidthOrHeight: 800,
+      useWebWorker: true,
     };
 
     try {
-      // 변경 사항이 있을 때 === 업로딩 할 이미지가 있거나, 유저 정보 이름과 폼 이름이 같지 않을 때,
-      if (
-        (previewFile && previewFile.length > 0) ||
-        user.displayName !== displayName ||
-        isDelete
-      ) {
-        // 업로드한 이미지가 있을 때,
-        if (previewFile && previewFile.length > 0 && isPreview) {
-          const compressedFile = await imageCompression(
-            previewFile?.[0],
-            options
-          );
-          const locationRef = ref(storage, `profiles/${user.uid}`);
-          const result = await uploadBytes(locationRef, compressedFile);
-          const url = await getDownloadURL(result.ref);
-          // 사진만 변경 됐을 때,
-          if (user.displayName === displayName) {
-            await updateProfile(user, {
-              photoURL: url,
-            });
-          }
+      // 업로드한 사진 있을 때,
+      if (previewFile && previewFile.length > 0 && isPreview) {
+        const compressedFile = await imageCompression(
+          previewFile?.[0],
+          options
+        );
+        const locationRef = ref(storage, `profiles/${user.uid}`);
+        const result = await uploadBytes(locationRef, compressedFile);
+        const url = await getDownloadURL(result.ref);
 
-          // 둘 다 변경 됐을 때,
-          if (user.displayName !== displayName) {
-            await updateProfile(user, {
-              photoURL: url,
-              displayName: displayName,
-            });
-          }
-        }
-
-        // 이미지 삭제
-        if (isDelete) {
-          const locationRef = ref(storage, `profiles/${user.uid}`);
-          // 스토리지에서 사진 삭제
-          await deleteObject(locationRef);
-          // 유저 정보에 강제로 null string 넣기
+        // 사진만 변경 됐을 때,
+        if (
+          user.displayName === displayName ||
+          displayName?.trim().length === 0
+        ) {
           await updateProfile(user, {
-            photoURL: 'null',
+            photoURL: url,
           });
-          setDelete(false);
         }
-        // 이름만 변경 됐을 때,
-        if (!isPreview && displayName !== user.displayName) {
+
+        // 둘 다 변경 됐을 때,
+        if (
+          user.displayName !== displayName &&
+          displayName?.trim().length !== 0
+        ) {
           await updateProfile(user, {
+            photoURL: url,
             displayName: displayName,
           });
         }
+        //
+      }
+
+      // 사진 삭제
+      if (isDelete) {
+        const locationRef = ref(storage, `profiles/${user.uid}`);
+        // 스토리지에서 사진 삭제
+        await deleteObject(locationRef);
+        // 유저 정보에 강제로 null string 넣기
+        await updateProfile(user, {
+          photoURL: 'null',
+        });
+        setDelete(false);
+      }
+
+      // 이름만 변경 됐을 때,
+      if (
+        !isPreview &&
+        displayName !== user.displayName &&
+        displayName?.trim().length !== 0
+      ) {
+        await updateProfile(user, {
+          displayName: displayName,
+        });
       }
     } catch (error) {
       console.log(error);
@@ -137,7 +143,7 @@ const ProfileUploader = () => {
   return (
     <ProfileUploaderStyled>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {isEdit && isDelete && photo !== 'null' && (
+        {isEdit && (isPreview || photo !== 'null') && (
           <ButtonStyled
             type="button"
             color="danger"

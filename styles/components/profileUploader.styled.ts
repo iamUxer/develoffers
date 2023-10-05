@@ -68,6 +68,7 @@ export const ProfileUploaderStyled = styled.div`
     }
     & + div {
       display: flex;
+      align-items: center;
       margin-left: 45px;
       &.isEdit {
         margin-left: 90px;
