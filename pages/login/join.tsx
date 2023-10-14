@@ -13,7 +13,8 @@ import { auth } from '@/firebase';
 import { useRouter } from 'next/router';
 import { FirebaseError } from 'firebase/app';
 import Link from 'next/link';
-import { GithubOutlined } from '@ant-design/icons';
+import { GithubOutlined, GoogleOutlined } from '@ant-design/icons';
+import { GoogleAuthProvider } from 'firebase/auth/cordova';
 
 const errors = {
   'auth/weak-password': 'Password should be at least 6 characters',
@@ -63,6 +64,19 @@ const Join = () => {
       console.error(error);
     }
   };
+
+  const onGoogle = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      const success = await signInWithPopup(auth, provider);
+      if (success) {
+        router.push('/home');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <JoinStyled>
@@ -114,8 +128,14 @@ const Join = () => {
 
         <ButtonStyled type="submit" color="default" onClick={onGithub}>
           <>
-            깃허브로 가입하기
+            깃허브 가입하기
             <GithubOutlined />
+          </>
+        </ButtonStyled>
+        <ButtonStyled type="submit" color="default" onClick={onGoogle}>
+          <>
+            구글 가입하기
+            <GoogleOutlined />
           </>
         </ButtonStyled>
       </JoinStyled>

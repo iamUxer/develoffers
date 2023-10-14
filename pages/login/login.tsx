@@ -5,14 +5,15 @@ import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { auth } from '@/firebase';
 import {
-  GithubAuthProvider,
   signInWithEmailAndPassword,
+  GithubAuthProvider,
+  GoogleAuthProvider,
   signInWithPopup,
 } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { GithubOutlined } from '@ant-design/icons';
+import { GithubOutlined, GoogleOutlined } from '@ant-design/icons';
 
 const errors = {
   'auth/weak-password': 'Password should be at least 6 characters',
@@ -52,6 +53,17 @@ const Login = forwardRef(() => {
   const onGithub = async () => {
     try {
       const provider = new GithubAuthProvider();
+      const success = await signInWithPopup(auth, provider);
+      if (success) {
+        router.push('/home');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const onGoogle = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
       const success = await signInWithPopup(auth, provider);
       if (success) {
         router.push('/home');
@@ -104,8 +116,14 @@ const Login = forwardRef(() => {
 
         <ButtonStyled type="submit" color="default" onClick={onGithub}>
           <>
-            깃허브로 로그인
+            깃허브 로그인
             <GithubOutlined />
+          </>
+        </ButtonStyled>
+        <ButtonStyled type="submit" color="default" onClick={onGoogle}>
+          <>
+            구글 로그인
+            <GoogleOutlined />
           </>
         </ButtonStyled>
       </JoinStyled>

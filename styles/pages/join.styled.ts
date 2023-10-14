@@ -31,11 +31,11 @@ export const JoinStyled = styled.div`
       }
       & + button {
         margin-top: 30px;
-        width: 100%;
       }
     }
   }
   & button {
+    width: 100%;
     margin-top: 10px;
   }
 `;

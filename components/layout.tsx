@@ -1,7 +1,7 @@
 // import styled from 'styled-components';
 import { theme } from '@/styles/theme';
 import styled from '@emotion/styled';
-import { HomeIcon, LogoutIcon, ProfileIcon } from './icons';
+import { HomeIcon, LogoutIcon, ProfileIcon, WithDrawIcon } from './icons';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { auth } from '@/firebase';
@@ -55,6 +55,15 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             <li onClick={onLogIn}>
               <ButtonStyled type="button" size="md" color="default" bordered>
                 로그인
+              </ButtonStyled>
+            </li>
+          )}
+          {user && (
+            <li>
+              <ButtonStyled type="button" size="md" color="default" bordered>
+                <Link href={'/login/withdraw'}>
+                  <WithDrawIcon size="sm" />
+                </Link>
               </ButtonStyled>
             </li>
           )}
