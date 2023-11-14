@@ -14,7 +14,7 @@ import { useRouter } from 'next/router';
 import { FirebaseError } from 'firebase/app';
 import Link from 'next/link';
 import { GithubOutlined, GoogleOutlined } from '@ant-design/icons';
-import { GoogleAuthProvider } from 'firebase/auth/cordova';
+import { GoogleAuthProvider } from 'firebase/auth';
 
 const errors = {
   'auth/weak-password': 'Password should be at least 6 characters',

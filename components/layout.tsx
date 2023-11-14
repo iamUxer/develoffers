@@ -58,7 +58,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
               </ButtonStyled>
             </li>
           )}
-          {user && (
+          {/* {user && (
             <li>
               <ButtonStyled type="button" size="md" color="default" bordered>
                 <Link href={'/login/withdraw'}>
@@ -66,7 +66,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 </Link>
               </ButtonStyled>
             </li>
-          )}
+          )} */}
         </ul>
       </Nav>
       <StyledLayout>{children}</StyledLayout>
